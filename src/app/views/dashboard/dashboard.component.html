@@ -1,0 +1,33 @@
+<div class="page-container">
+  <mat-toolbar>
+    <span>Learning Docs!</span>
+  </mat-toolbar>
+  
+  <main>
+    <header>
+      <div class="input-container">
+        <mat-form-field>
+          <input matInput [(ngModel)]="document.title" placeholder="Título">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput [(ngModel)]="document.content" placeholder="Conteúdo">
+        </mat-form-field>
+      </div>
+
+      <button mat-button (click)="createDocument()" color="primary">Cadastrar documento</button>
+    </header>
+
+    <section class="card-container">
+      <mat-card *ngFor="let doc of documents" class="card">
+        <mat-card-header class="header">
+          <mat-card-title>{{ doc.title }}</mat-card-title>
+        </mat-card-header>
+    
+        <mat-card-content>
+          <p>{{ doc.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </main>
+</div>
