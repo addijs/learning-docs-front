@@ -4,10 +4,16 @@
 
 html,
 body {
+  margin: 0;
   height: 100%;
 }
-body {
-  margin: 0;
+
+body,
+input,
+textarea {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background: #a5a5a5;
+}
+
+:root {
+  font-size: 62.5%;
 }
