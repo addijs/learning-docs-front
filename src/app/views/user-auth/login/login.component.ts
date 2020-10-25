@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,38 +10,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-  // Static User for tests
-  user: User = {
-    email: 'adelso@gmail.com',
-    password: '123',
+  snackBarConfig: MatSnackBarConfig = {
+    duration: 5000,
+    horizontalPosition: 'right',
+    verticalPosition: 'top',
   };
 
-  inputEmail: string;
-  inputPassword: string;
+  user: User;
 
-  constructor(private snackBar: MatSnackBar, private router: Router) {}
+  constructor(private snackBar: MatSnackBar, private service: UserService) {
+    this.user = new User();
+  }
 
   ngOnInit(): void {}
 
   login(): void {
-    if (
-      this.inputEmail !== this.user.email ||
-      this.inputPassword !== this.user.password
-    ) {
-      this.openSnackBar('Credenciais incorretas. Tente novamente.');
-    } else {
-      this.router.navigate(['/dashboard']);
-    }
+    this.service.login(this.user.email).subscribe(([storedUser]) => {
+      if (!storedUser) {
+        this.openSnackBar('Este usuário não existe');
+      }
+
+      if (this.user.password !== storedUser.password) {
+        this.openSnackBar('Senha incorreta');
+      }
+
+      console.log(storedUser);
+    });
   }
 
   openSnackBar(msg: string): void {
-    this.snackBar.open(msg, 'X', {
-      duration: 2000,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
+    this.snackBar.open(msg, 'X', this.snackBarConfig);
   }
 }
