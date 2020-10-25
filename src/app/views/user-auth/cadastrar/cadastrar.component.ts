@@ -10,15 +10,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./cadastrar.component.css'],
 })
 export class CadastrarComponent implements OnInit {
-  user: User = {
-    name: '',
-    email: '',
-    password: '',
-  };
+  user: User;
 
   inputConfirmPassword: string;
 
-  constructor(private service: UserService, private router: Router) {}
+  constructor(private service: UserService, private router: Router) {
+    this.user = new User();
+  }
 
   ngOnInit(): void {}
 
@@ -30,6 +28,8 @@ export class CadastrarComponent implements OnInit {
     this.service.signUp(this.user).subscribe(() => {
       alert('Usuário cadastrado com sucesso!');
       this.router.navigate(['/']);
+
+      this.user = new User();
     });
   }
 }
