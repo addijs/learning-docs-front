@@ -7,23 +7,16 @@ import { LoginComponent } from './views/user-auth/login/login.component';
 const routes: Routes = [
   {
     path: '',
+    component: LoginComponent,
+  },
+  {
+    path: 'cadastrar',
+    component: CadastrarComponent,
+  },
+  {
+    path: 'dashboard',
     component: DashboardComponent,
   },
-
-  // Ideia inicial
-
-  // {
-  //   path: '',
-  //   component: LoginComponent,
-  // },
-  // {
-  //   path: 'cadastrar',
-  //   component: CadastrarComponent,
-  // },
-  // {
-  //   path: 'dashboard',
-  //   component: DashboardComponent,
-  // },
 ];
 
 @NgModule({
