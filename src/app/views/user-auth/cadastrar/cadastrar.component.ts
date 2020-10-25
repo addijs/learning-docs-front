@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-cadastrar',
@@ -6,8 +10,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cadastrar.component.css'],
 })
 export class CadastrarComponent implements OnInit {
-  //TODO
-  constructor() {}
+  user: User = {
+    name: '',
+    email: '',
+    password: '',
+  };
+
+  inputConfirmPassword: string;
+
+  constructor(private service: UserService, private router: Router) {}
 
   ngOnInit(): void {}
+
+  signUp(): void {
+    if (this.user.password !== this.inputConfirmPassword) {
+      alert('Senhas inválidas');
+    }
+
+    this.service.signUp(this.user).subscribe(() => {
+      alert('Usuário cadastrado com sucesso!');
+      this.router.navigate(['/']);
+    });
+  }
 }
