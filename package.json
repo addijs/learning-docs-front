@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "dev:db": "json-server --watch db.json --port 3333"
+    "start:db": "json-server --watch db.json --port 3333"
   },
   "private": true,
   "dependencies": {
