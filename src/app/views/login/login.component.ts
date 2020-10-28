@@ -28,10 +28,12 @@ export class LoginComponent implements OnInit {
     this.service.login(this.user.email).subscribe(([storedUser]) => {
       if (!storedUser) {
         this.openSnackBar('Este usuário não existe');
+        return;
       }
 
       if (this.user.password !== storedUser.password) {
         this.openSnackBar('Senha incorreta');
+        return;
       }
 
       console.log(storedUser);

@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
   signUp(): void {
     if (this.user.password !== this.inputConfirmPassword) {
       alert('Senhas inválidas');
+      return;
     }
 
     this.service.signup(this.user).subscribe(() => {
