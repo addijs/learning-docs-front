@@ -1,15 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { User } from '@shared/entities/user';
+import { UserService } from 'app/services/user.service';
 
 @Component({
-  selector: 'app-cadastrar',
-  templateUrl: './cadastrar.component.html',
-  styleUrls: ['./cadastrar.component.css'],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css'],
 })
-export class CadastrarComponent implements OnInit {
+export class SignupComponent implements OnInit {
   user: User;
 
   inputConfirmPassword: string;
@@ -25,7 +24,7 @@ export class CadastrarComponent implements OnInit {
       alert('Senhas inválidas');
     }
 
-    this.service.signUp(this.user).subscribe(() => {
+    this.service.signup(this.user).subscribe(() => {
       alert('Usuário cadastrado com sucesso!');
       this.router.navigate(['/']);
 

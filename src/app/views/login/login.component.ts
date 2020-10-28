@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { User } from '@shared/entities/user';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-login',

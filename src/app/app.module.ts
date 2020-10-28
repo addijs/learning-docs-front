@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserAuthModule } from './views/user-auth/user-auth.module';
-import { DashboardModule } from './views/dashboard/dashboard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from '@core/core.module';
+import { LoginModule } from '@views/login/login.module';
+import { SignupModule } from '@views/signup/signup.module';
+import { MainModule } from '@views/main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +15,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    UserAuthModule,
-    DashboardModule,
+    CoreModule,
+    LoginModule,
+    SignupModule,
+    MainModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

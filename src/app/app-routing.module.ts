@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { CadastrarComponent } from './views/user-auth/cadastrar/cadastrar.component';
-import { LoginComponent } from './views/user-auth/login/login.component';
+import { LoginComponent } from '@views/login/login.component';
+import { SignupComponent } from '@views/signup/signup.component';
+import { MainComponent } from './views/main/main.component';
 
 const routes: Routes = [
   {
@@ -10,12 +10,12 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'cadastrar',
-    component: CadastrarComponent,
+    path: 'signup',
+    component: SignupComponent,
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'main',
+    component: MainComponent,
   },
 ];
 

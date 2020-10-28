@@ -6,11 +6,11 @@ class Document {
 }
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css'],
 })
-export class DashboardComponent implements OnInit {
+export class MainComponent implements OnInit {
   document: Document;
   documents: Document[] = [];
 
