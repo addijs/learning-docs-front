@@ -18,7 +18,11 @@ export class LoginComponent implements OnInit {
 
   user: User;
 
-  constructor(private snackBar: MatSnackBar, private service: UserService) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private service: UserService,
+    private router: Router
+  ) {
     this.user = new User();
   }
 
@@ -36,7 +40,7 @@ export class LoginComponent implements OnInit {
         return;
       }
 
-      console.log(storedUser);
+      this.router.navigate(['/main']);
     });
   }
 
