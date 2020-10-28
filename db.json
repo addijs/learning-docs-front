@@ -11,6 +11,12 @@
       "email": "junin@yahoo.com",
       "password": "123123",
       "id": 2
+    },
+    {
+      "name": "John Doe",
+      "email": "john@doe.com",
+      "password": "321",
+      "id": 3
     }
   ]
 }
