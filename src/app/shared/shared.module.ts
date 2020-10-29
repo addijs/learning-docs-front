@@ -7,6 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
@@ -19,6 +23,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatIconModule,
     MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatDividerModule,
+    MatTabsModule
   ],
   exports: [
     FormsModule,
@@ -28,6 +36,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatIconModule,
     MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatDividerModule,
+    MatTabsModule
   ],
 })
 export class SharedModule {}
