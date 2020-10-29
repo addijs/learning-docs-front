@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="topic-input">
+        <mat-form-field>
+            <input matInput [(ngModel)]="topic.name" placeholder="Nome do tópico">
+        </mat-form-field>
+        <button mat-button (click)="createTopic()" color="primary">Novo tópico</button>
+    </div>
+
+    <div>
+        <mat-list role="list">
+            <div *ngFor="let topic of topics">
+                <button mat-button>{{ topic.name }}</button>
+            </div>
+        </mat-list>
+    </div>
+</div>

@@ -1,33 +1,48 @@
-<div class="page-container">
-  <mat-toolbar>
-    <span>Learning Docs!</span>
-  </mat-toolbar>
+<mat-toolbar>
+  <span>Learning Docs!</span>
+</mat-toolbar>
+
+<mat-drawer-container class="page-container">
+  <mat-drawer mode="side" opened class="sidenav">
+    <app-topics></app-topics>
+  </mat-drawer>
   
-  <main>
-    <header>
-      <div class="input-container">
-        <mat-form-field>
-          <input matInput [(ngModel)]="document.title" placeholder="Título">
-        </mat-form-field>
-        
-        <mat-form-field>
-          <input matInput [(ngModel)]="document.content" placeholder="Conteúdo">
-        </mat-form-field>
-      </div>
-
-      <button mat-button (click)="createDocument()" color="primary">Cadastrar documento</button>
-    </header>
-
-    <section class="card-container">
-      <mat-card *ngFor="let doc of documents" class="card">
-        <mat-card-header class="header">
-          <mat-card-title>{{ doc.title }}</mat-card-title>
-        </mat-card-header>
+  <mat-drawer-content>
+    <main>
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Anotações"> 
+          <header>
+            <div class="input-container">
+              <mat-form-field>
+                <input matInput [(ngModel)]="document.title" placeholder="Título">
+              </mat-form-field>
     
-        <mat-card-content>
-          <p>{{ doc.content }}</p>
-        </mat-card-content>
-      </mat-card>
-    </section>
-  </main>
-</div>
+              <mat-form-field>
+                <input matInput [(ngModel)]="document.content" placeholder="Conteúdo">
+              </mat-form-field>
+            </div>
+    
+            <button mat-button (click)="createDocument()" color="primary">Cadastrar documento</button>
+          </header>
+    
+          <section class="card-container">
+            <mat-card *ngFor="let doc of documents" class="card">
+              <mat-card-header class="header">
+                <mat-card-title>{{ doc.title }}</mat-card-title>
+              </mat-card-header>
+    
+              <mat-card-content>
+                <p>{{ doc.content }}</p>
+              </mat-card-content>
+            </mat-card>
+          </section>
+        </mat-tab>
+        <mat-tab label="Vídeos"> Vídeos!! </mat-tab>
+        <mat-tab label="Links"> Links!! </mat-tab>
+      </mat-tab-group>
+      
+    </main>
+
+  </mat-drawer-content>
+
+</mat-drawer-container>

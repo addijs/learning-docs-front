@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.topic-input{
+    display: flex;
+    flex-direction: row;
+}
