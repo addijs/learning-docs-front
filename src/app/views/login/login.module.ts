@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '@shared/shared.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login.component';
+import { LoginRoutingModule } from './login-routing.module';
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [CommonModule, SharedModule, MatSnackBarModule],
+  imports: [CommonModule, SharedModule, LoginRoutingModule, MatSnackBarModule],
 })
 export class LoginModule {}
