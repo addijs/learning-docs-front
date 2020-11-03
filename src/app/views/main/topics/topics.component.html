@@ -9,7 +9,12 @@
     <div>
         <mat-list role="list">
             <div *ngFor="let topic of topics">
+              <div class="topic-container">
                 <button mat-button>{{ topic.name }}</button>
+                <button (click)="deleteTopic(topic.id)" mat-mini-fab>
+                    <mat-icon mat-icon>delete</mat-icon>
+                </button>
+              </div>
             </div>
         </mat-list>
     </div>

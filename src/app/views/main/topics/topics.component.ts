@@ -18,8 +18,7 @@ export class TopicsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.topicService.listar().subscribe(topics => (this.topics = [...topics]));
-    const stringfiedUser = localStorage.getItem('user');
-    const user: User = JSON.parse(stringfiedUser);
+    const user = this.getUserFromLocalStorage();
     this.topicService
       .getTopicsByUserId(user.id)
       .subscribe(topics => (this.topics = [...topics]));
@@ -37,5 +36,19 @@ export class TopicsComponent implements OnInit {
     );
 
     this.topic = new Topic();
+  }
+
+  deleteTopic(id: number): void {
+    this.topicService.remover(id).subscribe(() => {
+      const newTopicsArray = this.topics.filter(topic => topic.id !== id);
+      this.topics = [...newTopicsArray];
+    });
+  }
+
+  private getUserFromLocalStorage(): User {
+    const stringfiedUser = localStorage.getItem('user');
+    const user: User = JSON.parse(stringfiedUser);
+
+    return user;
   }
 }

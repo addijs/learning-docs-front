@@ -14,15 +14,15 @@ export abstract class Crud<T> {
     return this.httpClient.post<T>(this.url, entidade);
   }
 
-  remover(id: number = 1): Observable<T> {
-    return this.httpClient.delete<T>(`${this.url}/${id}`);
+  remover(id: number): Observable<null> {
+    return this.httpClient.delete<null>(`${this.url}/${id}`);
   }
 
-  pesquisarPorId(id: number = 1): Observable<T> {
+  pesquisarPorId(id: number): Observable<T> {
     return this.httpClient.get<T>(`${this.url}/${id}`);
   }
 
-  atualizar(id: number = 1, data: any): Observable<T> {
+  atualizar(id: number, data: any): Observable<T> {
     return this.httpClient.put<T>(`${this.url}/${id}`, data);
   }
 }
