@@ -15,7 +15,7 @@ export class UserService {
     return this.http.post<User>(this.APP_URL, user);
   }
 
-  login(email: string): Observable<User[]> {
+  getUser(email: string): Observable<User[]> {
     return this.http.get<User[]>(this.APP_URL + `?email=${email}`);
   }
 }
