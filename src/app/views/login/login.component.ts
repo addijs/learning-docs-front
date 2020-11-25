@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
         return;
       }
 
-      localStorage.setItem('user', JSON.stringify(storedUser));
+      delete storedUser.password;
+
+      localStorage.setItem('loggedUser', JSON.stringify(storedUser));
 
       this.router.navigate(['/main']);
     });
