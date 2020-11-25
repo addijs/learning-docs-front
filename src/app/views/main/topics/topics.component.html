@@ -1,21 +1,32 @@
-<div class="container">
-    <div class="topic-input">
-        <mat-form-field>
-            <input matInput [(ngModel)]="topic.name" placeholder="Nome do tópico">
-        </mat-form-field>
-        <button mat-button (click)="createTopic()" color="primary">Novo tópico</button>
-    </div>
+<div id="sidebar-container">
+  <header>
+    <button mat-mini-fab color="primary" (click)="createTopic()">
+      <mat-icon>add</mat-icon>
+    </button>
 
-    <div>
-        <mat-list role="list">
-            <div *ngFor="let topic of topics">
-              <div class="topic-container">
-                <button mat-button>{{ topic.name }}</button>
-                <button (click)="deleteTopic(topic.id)" mat-mini-fab>
-                    <mat-icon mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-        </mat-list>
+    <div class="input-container">
+      <input type="text" placeholder="Encontrar" [(ngModel)]="topic.name">
+      
+      <button *ngIf="topic.name" class="close" (click)="topic.name=''">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
+  </header>
+
+  <div *ngIf="topics.length == 0" class="no-topics">
+    <h3>Não há nenhum tópico :(</h3>
+  </div>
+
+  <div class="topics-container">
+    <mat-list role="list">
+      <div *ngFor="let topic of topics">
+        <div class="topic-container">
+          <button mat-button>{{ topic.name }}</button>
+          <button (click)="deleteTopic(topic.id)" mat-mini-fab>
+            <mat-icon mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-list>
+  </div>
 </div>
