@@ -10,24 +10,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatDividerModule,
-    MatTabsModule
-  ],
   exports: [
     FormsModule,
     RouterModule,
@@ -39,7 +25,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSidenavModule,
     MatListModule,
     MatDividerModule,
-    MatTabsModule
+    MatTabsModule,
   ],
 })
 export class SharedModule {}
