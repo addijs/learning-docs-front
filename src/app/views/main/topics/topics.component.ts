@@ -3,6 +3,12 @@ import { Topic } from '@shared/entities/topic';
 import { User } from '@shared/entities/user';
 import { TopicService } from 'app/services/topic.service';
 
+interface UserData {
+  id: number;
+  name: string;
+  email: string;
+}
+
 @Component({
   selector: 'app-topics',
   templateUrl: './topics.component.html',
@@ -12,20 +18,33 @@ export class TopicsComponent implements OnInit {
   topic: Topic;
   topics: Topic[];
 
+  private loggedUser: UserData;
+
   constructor(private topicService: TopicService) {
     this.topic = new Topic();
+    this.topics = [];
   }
 
   ngOnInit(): void {
     // this.topicService.listar().subscribe(topics => (this.topics = [...topics]));
-    const user = this.getUserFromLocalStorage();
+    this.loggedUser = this.getUserFromLocalStorage();
     this.topicService
-      .getTopicsByUserId(user.id)
-      .subscribe(topics => (this.topics = [...topics]));
+      .getTopicsByUserId(this.loggedUser.id)
+      .subscribe(topics => {
+        this.topics = [...topics];
+      });
+  }
+
+  topicsIsEmpty(): boolean {
+    if (this.topics.length === 0) {
+      return true;
+    }
+
+    return false;
   }
 
   createTopic(): void {
-    this.topic.user_id = parseInt(localStorage.getItem('loggedUser'));
+    this.topic.user_id = this.loggedUser.id;
     this.topicService.inserir(this.topic).subscribe(
       data => {
         this.topics.push(data);
@@ -45,9 +64,9 @@ export class TopicsComponent implements OnInit {
     });
   }
 
-  private getUserFromLocalStorage(): User {
-    const stringfiedUser = localStorage.getItem('user');
-    const user: User = JSON.parse(stringfiedUser);
+  private getUserFromLocalStorage(): UserData {
+    const stringfiedUser = localStorage.getItem('loggedUser');
+    const user: UserData = JSON.parse(stringfiedUser);
 
     return user;
   }

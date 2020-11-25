@@ -13,7 +13,7 @@
     </div>
   </header>
 
-  <div *ngIf="topics.length == 0" class="no-topics">
+  <div *ngIf="topicsIsEmpty()" class="no-topics">
     <h3>Não há nenhum tópico :(</h3>
   </div>
 
@@ -22,7 +22,7 @@
       <div *ngFor="let topic of topics">
         <div class="topic-container">
           <button mat-button>{{ topic.name }}</button>
-          <button (click)="deleteTopic(topic.id)" mat-mini-fab>
+          <button mat-mini-fab color="primary" (click)="deleteTopic(topic.id)">
             <mat-icon mat-icon>delete</mat-icon>
           </button>
         </div>
