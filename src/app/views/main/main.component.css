@@ -1,3 +1,8 @@
+mat-toolbar {
+  background: #36117e;
+  color: #dbc8ff;
+}
+
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -47,7 +52,7 @@ main .card-container .card + .card {
   margin-top: 20px;
 }
 
-.sidenav{
+.sidenav {
   min-width: 250px;
   padding: 10px;
 }
