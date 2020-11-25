@@ -18,5 +18,22 @@
       "password": "321",
       "id": 3
     }
+  ],
+  "topic": [
+    {
+      "name": "Java",
+      "user_id": 1,
+      "id": 1
+    },
+    {
+      "name": "Python",
+      "user_id": 1,
+      "id": 2
+    },
+    {
+      "name": "Typescript",
+      "user_id": 2,
+      "id": 2
+    }
   ]
 }

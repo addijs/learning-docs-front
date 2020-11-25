@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login(): void {
-    this.service.login(this.user.email).subscribe(([storedUser]) => {
+    this.service.getUser(this.user.email).subscribe(([storedUser]) => {
       if (!storedUser) {
         this.openSnackBar('Este usuário não existe');
         return;
@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
         this.openSnackBar('Senha incorreta');
         return;
       }
+
+      localStorage.setItem('user', JSON.stringify(storedUser));
 
       this.router.navigate(['/main']);
     });
