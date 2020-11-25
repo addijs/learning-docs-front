@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 export abstract class Crud<T> {
-  constructor(private url: string, private httpClient: HttpClient) {
+  constructor(protected url: string, private httpClient: HttpClient) {
     this.url = url;
   }
 

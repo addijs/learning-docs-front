@@ -8,13 +8,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TopicService extends Crud<Topic> {
-  private APP_URL = 'http://localhost:3333/topic';
-
   constructor(private http: HttpClient) {
-    super('http://localhost:3333/topic', http);
+    super('http://localhost:3333/topics', http);
   }
 
   getTopicsByUserId(userId: number): Observable<Topic[]> {
-    return this.http.get<Topic[]>(this.APP_URL + `?user_id=${userId}`);
+    return this.http.get<Topic[]>(this.url + `?user_id=${userId}`);
   }
 }
