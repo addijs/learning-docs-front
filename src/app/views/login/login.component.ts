@@ -3,6 +3,7 @@ import { User } from '@shared/entities/user';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
+import { UserFirestoreService } from 'app/services/user-firestore.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    private service: UserService,
+    private service: UserFirestoreService,
     private router: Router
   ) {
     this.user = new User();

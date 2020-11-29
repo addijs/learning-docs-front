@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Topic } from '@shared/entities/topic';
 import { User } from '@shared/entities/user';
+import { TopicFirestoreService } from 'app/services/topic-firestore.service';
 import { TopicService } from 'app/services/topic.service';
 
 interface UserData {
-  id: number;
+  id: number | string;
   name: string;
   email: string;
 }
@@ -20,7 +21,7 @@ export class TopicsComponent implements OnInit {
 
   private loggedUser: UserData;
 
-  constructor(private topicService: TopicService) {
+  constructor(private topicService: TopicFirestoreService) {
     this.topic = new Topic();
     this.topics = [];
   }
@@ -29,7 +30,7 @@ export class TopicsComponent implements OnInit {
     // this.topicService.listar().subscribe(topics => (this.topics = [...topics]));
     this.loggedUser = this.getUserFromLocalStorage();
     this.topicService
-      .getTopicsByUserId(this.loggedUser.id)
+      .getTopicsByUserId(this.loggedUser.id as string)
       .subscribe(topics => {
         this.topics = [...topics];
       });
@@ -57,7 +58,7 @@ export class TopicsComponent implements OnInit {
     this.topic = new Topic();
   }
 
-  deleteTopic(id: number): void {
+  deleteTopic(id: string): void {
     this.topicService.remover(id).subscribe(() => {
       const newTopicsArray = this.topics.filter(topic => topic.id !== id);
       this.topics = [...newTopicsArray];

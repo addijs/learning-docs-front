@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@shared/entities/user';
+import { UserFirestoreService } from 'app/services/user-firestore.service';
 import { UserService } from 'app/services/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class SignupComponent implements OnInit {
 
   inputConfirmPassword: string;
 
-  constructor(private service: UserService, private router: Router) {
+  constructor(private service: UserFirestoreService, private router: Router) {
     this.user = new User();
   }
 
