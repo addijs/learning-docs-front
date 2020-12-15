@@ -1,0 +1,30 @@
+<div class="videos-container">
+  <header>
+    <div class="input-container">
+      <input type="text" placeholder="Adicionar video" [(ngModel)]="video.videoUrl">
+      
+      <button *ngIf="video.videoUrl" class="close" (click)="video.videoUrl=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <button mat-mini-fab color="primary" (click)="addVideo()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </header>
+
+  <div *ngFor="let video of videos" class="video-container">
+    <iframe 
+      width="560" 
+      height="315" 
+      [src]="video.embedUrl"
+      frameborder="0" 
+      allowfullscreen
+    >
+    </iframe>
+
+    <button mat-mini-fab color="primary" (click)="removeVideo(video.id)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

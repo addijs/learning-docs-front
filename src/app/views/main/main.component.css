@@ -14,11 +14,13 @@ mat-toolbar {
   height: 90vh;
 }
 
+mat-drawer-content {
+  display: flex;
+}
+
 main {
   flex: 1;
   background: #f5f5f5;
-  width: 900px;
-  margin: 30px auto;
 }
 
 main header,
