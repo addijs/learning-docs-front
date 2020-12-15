@@ -35,5 +35,19 @@
       "user_id": 2,
       "id": 2
     }
+  ],
+  "videos": [
+    {
+      "videoUrl": "https://www.youtube.com/watch?v=bAOkv1j2fAs",
+      "user_id": 1,
+      "embedUrl": "http://www.youtube.com/embed/bAOkv1j2fAs",
+      "id": 1
+    },
+    {
+      "videoUrl": "https://www.youtube.com/watch?v=DArzZ3RvejU",
+      "user_id": 1,
+      "embedUrl": "http://www.youtube.com/embed/DArzZ3RvejU",
+      "id": 2
+    }
   ]
 }
