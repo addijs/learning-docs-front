@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Topic } from '@shared/entities/topic';
-import { User } from '@shared/entities/user';
 import { TopicService } from 'app/services/topic.service';
 
-interface UserData {
+export interface UserData {
   id: number;
   name: string;
   email: string;
