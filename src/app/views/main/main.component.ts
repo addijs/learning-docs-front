@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-class Document {
-  title: string;
-  content: string;
-}
+import { TopicService } from 'app/services/topic.service';
 
 @Component({
   selector: 'app-main',
@@ -11,17 +7,13 @@ class Document {
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  document: Document;
-  documents: Document[] = [];
+  selectedTopicId: number;
 
-  constructor() {
-    this.document = new Document();
-  }
+  constructor() {}
 
-  ngOnInit(): void {}
-
-  createDocument(): void {
-    this.documents.push(this.document);
-    this.document = new Document();
+  ngOnInit(): void {
+    TopicService.emitSelectedTopic.subscribe(topicId => {
+      this.selectedTopicId = topicId;
+    });
   }
 }

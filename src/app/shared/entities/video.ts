@@ -4,5 +4,5 @@ export class Video {
   id?: number;
   videoUrl: string;
   embedUrl: string | SafeResourceUrl;
-  user_id: number;
+  topic_id: number;
 }

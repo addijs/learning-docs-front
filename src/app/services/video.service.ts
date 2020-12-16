@@ -12,7 +12,7 @@ export class VideoService extends Crud<Video> {
     super('http://localhost:3333/videos', http);
   }
 
-  getVideosByUserId(userId: number): Observable<Video[]> {
-    return this.http.get<Video[]>(this.url + `?user_id=${userId}`);
+  getVideosByTopicId(topicId: number): Observable<Video[]> {
+    return this.http.get<Video[]>(this.url + `?topic_id=${topicId}`);
   }
 }

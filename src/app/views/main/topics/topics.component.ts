@@ -42,6 +42,10 @@ export class TopicsComponent implements OnInit {
     return false;
   }
 
+  selectTopic(id: number): void {
+    TopicService.emitSelectedTopic.emit(id);
+  }
+
   createTopic(): void {
     this.topic.user_id = this.loggedUser.id;
     this.topicService.inserir(this.topic).subscribe(

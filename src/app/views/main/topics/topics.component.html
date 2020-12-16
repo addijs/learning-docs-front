@@ -21,7 +21,7 @@
     <mat-list role="list">
       <div *ngFor="let topic of topics">
         <div class="topic-container">
-          <button mat-button>{{ topic.name }}</button>
+          <button mat-button (click)="selectTopic(topic.id)">{{ topic.name }}</button>
           <button mat-mini-fab color="primary" (click)="deleteTopic(topic.id)">
             <mat-icon mat-icon>delete</mat-icon>
           </button>

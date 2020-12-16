@@ -33,21 +33,52 @@
     {
       "name": "Typescript",
       "user_id": 2,
+      "id": 3
+    },
+    {
+      "name": "Ruby",
+      "user_id": 1,
+      "id": 4
+    }
+  ],
+  "documents": [
+    {
+      "title": "Streams em Java",
+      "content": "Bla bla bla",
+      "topic_id": 1,
+      "id": 1
+    },
+    {
+      "title": "Texto teste",
+      "content": "The log entries appear as the string value of the power property changes. Notice, however, that the ngOnChanges() method does not catch changes to hero.name. This is because Angular calls the hook only when the value of the input property changes. In this case, hero is the input property, and the value of the hero property is the reference to the hero object. The object reference did not change when the value of its own name property changed.",
+      "topic_id": 1,
       "id": 2
+    },
+    {
+      "title": "DevWeb com Python usando Django!",
+      "content": "The presence of this static field is a signal to the Ivy template type check compiler that when the NgIf structural directive renders its template, the type of the expression bound to ngIf should be narrowed in some way. For NgIf, the binding expression itself is used to narrow its type, which allows the strictNullChecks feature of TypeScript to work with NgIf.",
+      "topic_id": 2,
+      "id": 3
     }
   ],
   "videos": [
     {
       "videoUrl": "https://www.youtube.com/watch?v=bAOkv1j2fAs",
-      "user_id": 1,
+      "topic_id": 1,
       "embedUrl": "http://www.youtube.com/embed/bAOkv1j2fAs",
       "id": 1
     },
     {
-      "videoUrl": "https://www.youtube.com/watch?v=DArzZ3RvejU",
-      "user_id": 1,
-      "embedUrl": "http://www.youtube.com/embed/DArzZ3RvejU",
-      "id": 2
+      "videoUrl": "https://www.youtube.com/watch?v=ID58e0kyYdw",
+      "topic_id": 2,
+      "embedUrl": "http://www.youtube.com/embed/ID58e0kyYdw",
+      "id": 3
+    },
+    {
+      "videoUrl": "https://www.youtube.com/watch?v=YcMlnTWD4SA",
+      "topic_id": 1,
+      "embedUrl": "http://www.youtube.com/embed/YcMlnTWD4SA",
+      "id": 4
     }
   ]
 }

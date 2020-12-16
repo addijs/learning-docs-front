@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Video } from '@shared/entities/video';
 import { VideoService } from 'app/services/video.service';
-import { UserData } from '../topics/topics.component';
 
 @Component({
   selector: 'main-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.css'],
 })
-export class VideosComponent implements OnInit {
+export class VideosComponent implements OnInit, OnChanges {
   private domain = 'http://www.youtube.com/embed/';
+
+  @Input() topicId: number;
+
   video: Video;
   videos: Video[];
-
-  private loggedUser: UserData;
 
   constructor(
     private videoService: VideoService,
@@ -24,30 +24,30 @@ export class VideosComponent implements OnInit {
     this.videos = [];
   }
 
-  ngOnInit(): void {
-    this.loggedUser = this.getUserFromLocalStorage();
+  ngOnChanges(): void {
+    this.videoService.getVideosByTopicId(this.topicId).subscribe(videos => {
+      if (this.videos.length !== 0) {
+        this.videos.length = 0;
+      }
 
-    this.videoService
-      .getVideosByUserId(this.loggedUser.id)
-      .subscribe(videos => {
-        videos.forEach(video => {
-          const embedUrl = video.embedUrl;
-          video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-            embedUrl as string
-          );
-          this.videos.push(video);
-        });
+      videos.forEach(video => {
+        const embedUrl = video.embedUrl;
+        video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          embedUrl as string
+        );
+        this.videos.push(video);
       });
+    });
   }
 
+  ngOnInit(): void {}
+
   addVideo(): void {
-    this.video.user_id = this.loggedUser.id;
+    this.video.topic_id = this.topicId;
     this.video.embedUrl = this.getEmbedUrl();
 
     this.videoService.inserir(this.video).subscribe(
       data => {
-        console.log(data);
-
         const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.video.embedUrl as string
         );
@@ -68,13 +68,6 @@ export class VideosComponent implements OnInit {
       const newVideosArray = this.videos.filter(video => video.id !== id);
       this.videos = [...newVideosArray];
     });
-  }
-
-  private getUserFromLocalStorage(): UserData {
-    const stringfiedUser = localStorage.getItem('loggedUser');
-    const user: UserData = JSON.parse(stringfiedUser);
-
-    return user;
   }
 
   private getEmbedUrl() {

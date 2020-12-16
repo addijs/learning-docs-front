@@ -13,6 +13,9 @@
     </button>
   </header>
 
+  <h2 class="no-videos" *ngIf="!topicId">Selecione um tópico</h2>
+  <h2 class="no-videos" *ngIf="topicId && videos.length === 0">Não há vídeos para esse tópico :(</h2>
+
   <div *ngFor="let video of videos" class="video-container">
     <iframe 
       width="560" 

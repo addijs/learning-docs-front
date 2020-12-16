@@ -69,3 +69,8 @@
   opacity: 1;
   transform: translateX(-45px);
 }
+
+.videos-container .no-videos {
+  margin-top: 40px;
+  color: #cdb3ff;
+}

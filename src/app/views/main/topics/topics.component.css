@@ -69,6 +69,10 @@ header button.close mat-icon {
   align-items: center;
 }
 
+.topics-container .topic-container button:first-child {
+  width: 15rem;
+}
+
 .topics-container .ng-star-inserted + .ng-star-inserted {
   margin-top: 15px;
 }
