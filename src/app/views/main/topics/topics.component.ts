@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { Topic } from '@shared/entities/topic';
 import { TopicService } from 'app/services/topic.service';
 
@@ -9,13 +18,17 @@ export interface UserData {
 }
 
 @Component({
-  selector: 'app-topics',
+  selector: 'main-topics',
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.css'],
 })
-export class TopicsComponent implements OnInit {
+export class TopicsComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() topicId: number;
+  @ViewChildren('topicList') topicList: QueryList<ElementRef<HTMLDivElement>>;
+
   topic: Topic;
   topics: Topic[];
+  activeTopicId: number;
 
   private loggedUser: UserData;
 
@@ -25,7 +38,6 @@ export class TopicsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.topicService.listar().subscribe(topics => (this.topics = [...topics]));
     this.loggedUser = this.getUserFromLocalStorage();
     this.topicService
       .getTopicsByUserId(this.loggedUser.id)
@@ -34,16 +46,27 @@ export class TopicsComponent implements OnInit {
       });
   }
 
-  topicsIsEmpty(): boolean {
-    if (this.topics.length === 0) {
-      return true;
-    }
+  ngOnChanges(): void {}
 
-    return false;
+  ngAfterViewInit(): void {
+    console.log(this.topicList);
   }
+
+  // topicsIsEmpty(): boolean {
+  //   if (this.topics.length === 0) {
+  //     return true;
+  //   }
+
+  //   return false;
+  // }
 
   selectTopic(id: number): void {
     TopicService.emitSelectedTopic.emit(id);
+    this.activeTopicId = id;
+  }
+
+  isActive(id: number): boolean {
+    return id === this.activeTopicId;
   }
 
   createTopic(): void {
@@ -65,6 +88,10 @@ export class TopicsComponent implements OnInit {
       const newTopicsArray = this.topics.filter(topic => topic.id !== id);
       this.topics = [...newTopicsArray];
     });
+
+    if (this.topicId === id) {
+      TopicService.emitSelectedTopic.emit(undefined);
+    }
   }
 
   private getUserFromLocalStorage(): UserData {

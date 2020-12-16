@@ -73,6 +73,17 @@ header button.close mat-icon {
   width: 15rem;
 }
 
+.topics-container .topic-container button.active::after {
+  content: '';
+  display: block;
+
+  margin: 0 auto;
+
+  width: 60%;
+  height: 2px;
+  background: #aaa;
+}
+
 .topics-container .ng-star-inserted + .ng-star-inserted {
   margin-top: 15px;
 }

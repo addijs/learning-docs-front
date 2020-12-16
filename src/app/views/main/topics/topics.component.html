@@ -13,19 +13,17 @@
     </div>
   </header>
 
-  <div *ngIf="topicsIsEmpty()" class="no-topics">
+  <div *ngIf="topics.length === 0" class="no-topics">
     <h3>Não há nenhum tópico :(</h3>
   </div>
 
   <div class="topics-container">
     <mat-list role="list">
-      <div *ngFor="let topic of topics">
-        <div class="topic-container">
-          <button mat-button (click)="selectTopic(topic.id)">{{ topic.name }}</button>
-          <button mat-mini-fab color="primary" (click)="deleteTopic(topic.id)">
-            <mat-icon mat-icon>delete</mat-icon>
-          </button>
-        </div>
+      <div #topicList *ngFor="let topic of topics" class="topic-container">
+        <button [ngClass]="{'active' : isActive(topic.id)}" mat-button (click)="selectTopic(topic.id)">{{ topic.name }}</button>
+        <button mat-mini-fab color="primary" (click)="deleteTopic(topic.id)">
+          <mat-icon mat-icon>delete</mat-icon>
+        </button>
       </div>
     </mat-list>
   </div>

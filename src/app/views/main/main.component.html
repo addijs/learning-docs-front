@@ -4,7 +4,7 @@
 
 <mat-drawer-container class="page-container">
   <mat-drawer mode="side" opened class="sidenav">
-    <app-topics></app-topics>
+    <main-topics [topicId]="selectedTopicId"></main-topics>
   </mat-drawer>
   
   <mat-drawer-content>
@@ -16,7 +16,6 @@
         <mat-tab label="Vídeos">
           <main-videos [topicId]="selectedTopicId"></main-videos>
         </mat-tab>
-        <!-- <mat-tab label="Links"> Links!! </mat-tab> -->
       </mat-tab-group>
     </main>
 
