@@ -1,7 +1,11 @@
 header,
 header .input-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.input-container mat-form-field{
+  margin-left: 10px;
 }
 
 header {
@@ -22,7 +26,7 @@ header .input-container {
 }
 
 .card-container .card {
-  width: 300px;
+  width: 600px;
 }
 
 .card-container .card + .card {
@@ -31,4 +35,9 @@ header .input-container {
 
 .no-documents {
   color: #cdb3ff;
+}
+
+.no-topic-msg{
+  display: flex;
+  justify-content: center;
 }

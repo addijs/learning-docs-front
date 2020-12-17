@@ -9,12 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class TopicService extends Crud<Topic> {
   constructor(private http: HttpClient) {
-    super('http://localhost:3333/topics', http);
+    super('https://learning-docs.herokuapp.com/topic', http);
   }
 
   static emitSelectedTopic = new EventEmitter<number>();
-
-  getTopicsByUserId(userId: number): Observable<Topic[]> {
-    return this.http.get<Topic[]>(this.url + `?user_id=${userId}`);
-  }
 }

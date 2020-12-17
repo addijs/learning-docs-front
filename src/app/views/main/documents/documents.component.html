@@ -1,4 +1,4 @@
-<header>
+<header *ngIf="topicId">
   <div class="input-container">
     <mat-form-field>
       <input matInput [(ngModel)]="document.title" placeholder="Título">
@@ -9,11 +9,14 @@
     </mat-form-field>
   </div>
 
-  <button mat-button (click)="createDocument()" color="primary">Cadastrar documento</button>
+  <button mat-button (click)="createDocument()" color="primary">Cadastrar anotação</button>
 </header>
 
-<section class="card-container">
+<div class="no-topic-msg">
   <h2 class="no-documents" *ngIf="!topicId">Selecione um tópico</h2>
+</div>
+
+<section class="card-container">
   <h2 class="no-documents" *ngIf="topicId && documents.length === 0">Não há anotações para esse tópico</h2>
 
   <mat-card *ngFor="let doc of documents" class="card">

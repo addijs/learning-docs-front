@@ -7,19 +7,15 @@ export abstract class Crud<T> {
   }
 
   listar(): Observable<T[]> {
-    return this.httpClient.get<T[]>(this.url);
+    return this.httpClient.get<T[]>(`${this.url}/list`);
   }
 
   inserir(entidade): Observable<T> {
-    return this.httpClient.post<T>(this.url, entidade);
+    return this.httpClient.post<T>(`${this.url}/new`, entidade);
   }
 
   remover(id: number): Observable<null> {
     return this.httpClient.delete<null>(`${this.url}/${id}`);
-  }
-
-  pesquisarPorId(id: number): Observable<T> {
-    return this.httpClient.get<T>(`${this.url}/${id}`);
   }
 
   atualizar(id: number, data: any): Observable<T> {

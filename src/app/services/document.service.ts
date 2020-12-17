@@ -9,10 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class DocumentService extends Crud<Document> {
   constructor(private http: HttpClient) {
-    super('http://localhost:3333/documents', http);
+    super('https://learning-docs.herokuapp.com/topic-note', http);
   }
 
   getDocumentsByTopicId(topicId: number): Observable<Document[]> {
-    return this.http.get<Document[]>(this.url + `?topic_id=${topicId}`);
+    return this.http.get<Document[]>(`${this.url}/list?topicID=${topicId}`);
   }
 }

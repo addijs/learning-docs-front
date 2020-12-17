@@ -9,10 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class VideoService extends Crud<Video> {
   constructor(private http: HttpClient) {
-    super('http://localhost:3333/videos', http);
+    super('https://learning-docs.herokuapp.com/topic-video', http);
   }
 
   getVideosByTopicId(topicId: number): Observable<Video[]> {
-    return this.http.get<Video[]>(this.url + `?topic_id=${topicId}`);
+    return this.http.get<Video[]>(`${this.url}/list?topicID=${topicId}`);
   }
 }

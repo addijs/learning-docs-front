@@ -1,5 +1,5 @@
 <div class="videos-container">
-  <header>
+  <header *ngIf="topicId">
     <div class="input-container">
       <input type="text" placeholder="Adicionar video" [(ngModel)]="video.videoUrl">
       
@@ -13,7 +13,10 @@
     </button>
   </header>
 
-  <h2 class="no-videos" *ngIf="!topicId">Selecione um tópico</h2>
+  <div class="no-topic-msg">
+    <h2 class="no-videos" *ngIf="!topicId">Selecione um tópico</h2>
+  </div>
+
   <h2 class="no-videos" *ngIf="topicId && videos.length === 0">Não há vídeos para esse tópico :(</h2>
 
   <div *ngFor="let video of videos" class="video-container">

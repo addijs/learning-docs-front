@@ -18,31 +18,34 @@ export class DocumentsComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.documentService
-      .getDocumentsByTopicId(this.topicId)
-      .subscribe(documents => {
-        if (this.documents.length !== 0) {
-          this.documents.length = 0;
-        }
+      if(this.topicId != undefined){
+          this.documentService
+              .getDocumentsByTopicId(this.topicId)
+              .subscribe(documents => {
+                  if (this.documents.length !== 0) {
+                      this.documents.length = 0;
+                  }
 
-        documents.forEach(document => {
-          this.documents.push(document);
-        });
-      });
+                  documents.forEach(document => {
+                      this.documents.push(document);
+                  });
+              });
+      }
   }
 
   ngOnInit(): void {}
 
   createDocument(): void {
-    this.document.topic_id = this.topicId;
+    this.document.topicId = this.topicId;
 
     this.documentService.inserir(this.document).subscribe(
       data => {
         this.documents.push(data);
         this.document = new Document();
       },
-      error => {
-        alert(error);
+      err => {
+        console.log(err);
+        alert(err.error.message)
       }
     );
   }

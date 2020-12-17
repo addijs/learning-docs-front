@@ -74,3 +74,8 @@
   margin-top: 40px;
   color: #cdb3ff;
 }
+
+.no-topic-msg{
+  display: flex;
+  justify-content: center;
+}

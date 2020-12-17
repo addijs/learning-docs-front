@@ -9,7 +9,7 @@ import { VideoService } from 'app/services/video.service';
   styleUrls: ['./videos.component.css'],
 })
 export class VideosComponent implements OnInit, OnChanges {
-  private domain = 'http://www.youtube.com/embed/';
+  private domain = 'https://www.youtube.com/embed/';
 
   @Input() topicId: number;
 
@@ -25,25 +25,27 @@ export class VideosComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.videoService.getVideosByTopicId(this.topicId).subscribe(videos => {
-      if (this.videos.length !== 0) {
-        this.videos.length = 0;
-      }
+    if(this.topicId != undefined){
+      this.videoService.getVideosByTopicId(this.topicId).subscribe(videos => {
+        if (this.videos.length !== 0) {
+          this.videos.length = 0;
+        }
 
-      videos.forEach(video => {
-        const embedUrl = video.embedUrl;
-        video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          embedUrl as string
-        );
-        this.videos.push(video);
+        videos.forEach(video => {
+          const embedUrl = video.embedUrl;
+          video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+              embedUrl as string
+          );
+          this.videos.push(video);
+        });
       });
-    });
+    }
   }
 
   ngOnInit(): void {}
 
   addVideo(): void {
-    this.video.topic_id = this.topicId;
+    this.video.topicId = this.topicId;
     this.video.embedUrl = this.getEmbedUrl();
 
     this.videoService.inserir(this.video).subscribe(
@@ -57,8 +59,9 @@ export class VideosComponent implements OnInit, OnChanges {
         this.videos.push(data);
         this.video = new Video();
       },
-      error => {
-        alert(error);
+      err => {
+        console.log(err);
+        alert(err.error.message)
       }
     );
   }
