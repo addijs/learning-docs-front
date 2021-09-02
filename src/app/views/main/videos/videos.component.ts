@@ -1,22 +1,23 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Video } from '@shared/entities/video';
 import { VideoService } from 'app/services/video.service';
+import {TopicService} from "@services/topic.service";
 
 @Component({
   selector: 'main-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.css'],
 })
-export class VideosComponent implements OnInit, OnChanges {
-  private domain = 'http://www.youtube.com/embed/';
+export class VideosComponent implements OnInit {
+  private DOMAIN_URI = 'http://www.youtube.com/embed/';
 
-  @Input() topicId: number;
-
+  topicId: number;
   video: Video;
   videos: Video[];
 
   constructor(
+    private topicService: TopicService,
     private videoService: VideoService,
     private sanitizer: DomSanitizer
   ) {
@@ -24,23 +25,25 @@ export class VideosComponent implements OnInit, OnChanges {
     this.videos = [];
   }
 
-  ngOnChanges(): void {
-    this.videoService.getVideosByTopicId(this.topicId).subscribe(videos => {
-      if (this.videos.length !== 0) {
-        this.videos.length = 0;
-      }
+  ngOnInit(): void {
+    this.topicService.selectedTopicId$.subscribe(topicId => {
+      this.topicId = topicId
 
-      videos.forEach(video => {
-        const embedUrl = video.embedUrl;
-        video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          embedUrl as string
-        );
-        this.videos.push(video);
+      this.videoService.getVideosByTopicId(topicId).subscribe(videos => {
+        if (this.videos.length !== 0) {
+          this.videos.length = 0;
+        }
+
+        videos.forEach(video => {
+          const embedUrl = video.embedUrl;
+          video.embedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+              embedUrl as string
+          );
+          this.videos.push(video);
+        });
       });
     });
   }
-
-  ngOnInit(): void {}
 
   addVideo(): void {
     this.video.topic_id = this.topicId;
@@ -72,7 +75,7 @@ export class VideosComponent implements OnInit, OnChanges {
 
   private getEmbedUrl() {
     const [, videoId] = this.video.videoUrl.split('watch?v=');
-    const embedUrl = this.domain + videoId;
+    const embedUrl = this.DOMAIN_URI + videoId;
 
     return embedUrl;
   }
