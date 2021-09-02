@@ -1,0 +1,20 @@
+<section>
+<!--    <div class="input-container">-->
+<!--        <mat-form-field>-->
+<!--            <input matInput [(ngModel)]="document.title" placeholder="Título">-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field>-->
+<!--            <input matInput [(ngModel)]="document.content" placeholder="Conteúdo">-->
+<!--        </mat-form-field>-->
+<!--    </div>-->
+    <div class="form-container">
+        <input class="title" [(ngModel)]="document.title" placeholder="Título">
+        <textarea draggable="false" placeholder="Conteúdo"></textarea>
+    </div>
+
+    <button class="save" mat-button (click)="createDocument()" color="primary">Salvar</button>
+    <button class="return" mat-button (click)="handleNextTopicViewButton()" color="primary">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+</section>

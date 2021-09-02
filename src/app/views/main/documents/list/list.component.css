@@ -1,0 +1,58 @@
+section {
+    margin: 3rem;
+}
+
+section .message {
+    display: flex;
+    justify-content: center;
+}
+
+section .grid-container {
+    margin: 0 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+section .card-container,
+section .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section .card-container {
+    padding: 1rem 0;
+}
+
+section .card-container .card {
+    width: 25rem;
+}
+
+section .card-container .card .title {
+    font-size: 1.8rem;
+}
+
+section .card-container .card .content {
+    font-size: 1.3rem;
+}
+
+section .card-container .card .title,
+section .card-container .card .content {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/*section .card-container .card + .card {*/
+/*    margin-top: 20px;*/
+/*}*/
+
+section .button-container {
+    margin-top: 4rem;
+}
+
+.no-documents {
+    color: #cdb3ff;
+}
