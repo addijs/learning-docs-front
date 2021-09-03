@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import {AuthService} from "@services/auth.service";
+import { UserFirestoreService } from '@services/user-firestore.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private service: UserService,
+    private userService: UserFirestoreService,
     private router: Router
   ) {
     this.user = new User();
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
       password: this.user.password
     }
 
-    this.service.logIn(credentials).subscribe(async ([storedUser]) => {
+    this.userService.logIn(credentials).subscribe(async ([storedUser]) => {
       if (!storedUser) {
         this.openSnackBar('Este usuário não existe');
         return;
