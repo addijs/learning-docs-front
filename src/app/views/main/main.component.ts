@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TopicService } from 'app/services/topic.service';
 import { AuthService } from "@services/auth.service";
 import {Router} from "@angular/router";
+import { TopicFirestoreService } from '@services/topic-firestore.service';
 
 interface UserData {
   id: number;
@@ -19,7 +20,7 @@ export class MainComponent implements OnInit {
 
   constructor(
       private authService: AuthService,
-      private topicService: TopicService,
+      private topicService: TopicFirestoreService,
       private router: Router
   ) {}
 
