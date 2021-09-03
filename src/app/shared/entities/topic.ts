@@ -1,5 +1,13 @@
 export class Topic {
-  id?: number;
+  id?: number | string;
   name: String;
-  user_id: number;
+  userId: number | string;
+
+  constructor(topicData?: Topic, id?: string) {
+    if (topicData) {
+      this.id = id;
+      this.name = topicData.name;
+      this.userId = topicData.userId;
+    }
+  }
 }
