@@ -46,7 +46,8 @@ header button.close mat-icon {
   font-size: 20px;
 }
 
-.no-topics {
+.no-topics,
+.spinner {
   display: flex;
   flex-direction: column;
   flex: 1;
