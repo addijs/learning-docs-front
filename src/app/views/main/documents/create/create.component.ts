@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DocumentService} from "@services/document.service";
+import { DocumentFirestoreService } from '@services/document-firestore.service';
 import {Document} from "@shared/entities/document";
 
 @Component({
@@ -14,7 +14,7 @@ export class CreateComponent implements OnInit {
   document: Document;
 
   constructor(
-      private documentService: DocumentService
+      private documentService: DocumentFirestoreService
   ) { }
 
   ngOnInit(): void {
@@ -26,16 +26,16 @@ export class CreateComponent implements OnInit {
   }
 
   createDocument(): void {
-    this.document.topic_id = this.topicId;
+    this.document.topicId = this.topicId;
 
     this.documentService.inserir(this.document).subscribe(
         data => {
           this.document = new Document();
+          this.nextTopicViewEvent.emit('list');
         },
         error => {
           alert(error);
         }
     );
   }
-
 }
