@@ -1,5 +1,23 @@
+section .no-videos {
+  margin-top: 3rem;
+  color: #cdb3ff;
+}
+
+section .spinner {
+  margin-top: 10rem;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+section .message {
+  display: flex;
+  justify-content: center;
+}
+
 .videos-container {
-  margin: 20px;
+  margin: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,9 +86,4 @@
 .videos-container .video-container:hover button {
   opacity: 1;
   transform: translateX(-45px);
-}
-
-.videos-container .no-videos {
-  margin-top: 40px;
-  color: #cdb3ff;
 }

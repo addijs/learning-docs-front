@@ -1,33 +1,51 @@
-<div class="videos-container">
-  <header>
-    <div class="input-container">
-      <input type="text" placeholder="Adicionar video" [(ngModel)]="video.videoUrl">
-      
-      <button *ngIf="video.videoUrl" class="close" (click)="video.videoUrl=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
+<ng-container *ngIf="!(!!topicId) else listVideos">
+    <section>
+        <div class="message">
+            <h2 class="no-videos">Selecione um tópico</h2>
+        </div>
+    </section>
+</ng-container>
 
-    <button mat-mini-fab color="primary" (click)="addVideo()">
-      <mat-icon>add</mat-icon>
-    </button>
-  </header>
+<ng-template #listVideos>
+    <section>
+        <div *ngIf="loading" class="spinner">
+            <mat-spinner diameter="50"></mat-spinner>
+        </div>
 
-  <h2 class="no-videos" *ngIf="!topicId">Selecione um tópico</h2>
-  <h2 class="no-videos" *ngIf="topicId && videos.length === 0">Não há vídeos para esse tópico :(</h2>
+        <div *ngIf="!loading">
+            <div class="videos-container">
+                <header *ngIf="!loading">
+                    <div class="input-container">
+                        <input type="text" placeholder="Adicionar video" [(ngModel)]="video.videoUrl">
 
-  <div *ngFor="let video of videos" class="video-container">
-    <iframe 
-      width="560" 
-      height="315" 
-      [src]="video.embedUrl"
-      frameborder="0" 
-      allowfullscreen
-    >
-    </iframe>
+                        <button *ngIf="video.videoUrl" class="close" (click)="video.videoUrl=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
 
-    <button mat-mini-fab color="primary" (click)="removeVideo(video.id)">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-</div>
+                    <button mat-mini-fab color="primary" (click)="addVideo()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </header>
+
+                <h2 *ngIf="videos.length === 0" class="no-videos">Não há vídeos para esse tópico :(</h2>
+
+                <div *ngFor="let video of videos" class="video-container">
+                    <iframe
+                            width="560"
+                            height="315"
+                            [src]="video.embedUrl"
+                            frameborder="0"
+                            allowfullscreen
+                    >
+                    </iframe>
+
+                    <button mat-mini-fab color="primary" (click)="removeVideo(video.id)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-template>
+
