@@ -4,10 +4,10 @@ import {Document} from "@shared/entities/document";
 
 @Component({
   selector: 'document-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  templateUrl: './document-form.component.html',
+  styleUrls: ['./document-form.component.css']
 })
-export class CreateComponent implements OnInit {
+export class DocumentFormComponent implements OnInit {
   @Input() topicId: number;
   @Output() nextTopicViewEvent = new EventEmitter<string>();
 

@@ -5,10 +5,10 @@ import { DocumentFirestoreService } from '@services/document-firestore.service';
 
 @Component({
   selector: 'document-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  templateUrl: './document-list.component.html',
+  styleUrls: ['./document-list.component.css']
 })
-export class ListComponent implements OnInit, OnChanges {
+export class DocumentListComponent implements OnInit, OnChanges {
   @Input() topicId: number;
   @Output() nextTopicViewEvent = new EventEmitter<string>();
 
