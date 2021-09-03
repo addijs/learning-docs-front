@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { DocumentService } from "@services/document.service";
 import { Document } from "@shared/entities/document";
+import { DocumentFirestoreService } from '@services/document-firestore.service';
 
 @Component({
   selector: 'document-list',
@@ -11,11 +12,14 @@ export class ListComponent implements OnInit, OnChanges {
   @Input() topicId: number;
   @Output() nextTopicViewEvent = new EventEmitter<string>();
 
-  documents: Document[] = [];
+  documents: Document[];
+  loading: boolean;
 
   constructor(
-      private documentService: DocumentService
-  ) { }
+      private documentService: DocumentFirestoreService
+  ) {
+      this.documents = [];
+  }
 
   ngOnInit(): void {
 
@@ -26,6 +30,7 @@ export class ListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.loading = true;
     this.documentService
       .getDocumentsByTopicId(this.topicId)
       .subscribe(documents => {
@@ -36,6 +41,8 @@ export class ListComponent implements OnInit, OnChanges {
           documents.forEach(document => {
               this.documents.push(document);
           });
+
+          this.loading = false;
       });
   }
 }
