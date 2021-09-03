@@ -9,10 +9,16 @@ import {BehaviorSubject, Observable} from 'rxjs';
 })
 export class DocumentService extends Crud<Document> {
   // private API_URL: string = 'https://learning-docs.herokuapp.com'
+  private readonly documentToEditSubject = new BehaviorSubject<Document>(null);
+  readonly documentToEdit$ = this.documentToEditSubject.asObservable();
 
   constructor(private http: HttpClient) {
     // super('/topic-note', http);
     super('/documents', http);
+  }
+
+  setDocumentToEdit(document: Document): void {
+    this.documentToEditSubject.next(document);
   }
 
   getDocumentsByTopicId(topicId: number): Observable<Document[]> {

@@ -4,8 +4,8 @@
         <textarea draggable="false" [(ngModel)]="document.content" placeholder="Conteúdo"></textarea>
     </div>
 
-    <button class="save" mat-button (click)="createDocument()" color="primary">Salvar</button>
-    <button class="return" mat-button (click)="handleNextTopicViewButton()" color="primary">
+    <button class="save" mat-button (click)="handleSaveButton()" color="primary">Salvar</button>
+    <button class="return" mat-button (click)="handleReturnButton()" color="primary">
         <mat-icon>arrow_back</mat-icon>
     </button>
 </section>

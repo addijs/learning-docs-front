@@ -29,15 +29,15 @@
                         <mat-divider inset></mat-divider>
 
                         <mat-card-actions>
-                            <button mat-button>Editar</button>
-                            <button mat-button>Excluir</button>
+                            <button (click)="handleEditButton(doc)" mat-button>Editar</button>
+                            <button (click)="handleDeleteButton(doc.id)" mat-button>Excluir</button>
                         </mat-card-actions>
                     </mat-card>
                 </div>
             </div>
 
             <div class="button-container">
-                <button mat-button (click)="handleNextTopicViewButton()" color="primary">Cadastrar documento</button>
+                <button mat-button (click)="handleCreateButton()" color="primary">Cadastrar documento</button>
             </div>
         </div>
 

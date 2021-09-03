@@ -19,17 +19,29 @@ export class DocumentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.document = new Document();
+
+    this.documentService.documentToEdit$.subscribe(document => {
+      this.document = document;
+    })
   }
 
-  handleNextTopicViewButton(): void {
+  handleReturnButton(): void {
     this.nextTopicViewEvent.emit('list');
   }
 
-  createDocument(): void {
+  handleSaveButton(): void {
+    if (this.document.id) {
+      this.updateDocument();
+    } else {
+      this.createDocument();
+    }
+  }
+
+  private createDocument(): void {
     this.document.topicId = this.topicId;
 
     this.documentService.inserir(this.document).subscribe(
-        data => {
+        () => {
           this.document = new Document();
           this.nextTopicViewEvent.emit('list');
         },
@@ -37,5 +49,16 @@ export class DocumentFormComponent implements OnInit {
           alert(error);
         }
     );
+  }
+
+  private updateDocument(): void {
+    this.documentService.atualizar(this.document.id, {
+      title: this.document.title,
+      content: this.document.content
+    }).subscribe(() => {
+      this.nextTopicViewEvent.emit('list');
+    }, error => {
+      alert(error);
+    });
   }
 }

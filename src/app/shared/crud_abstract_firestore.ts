@@ -35,11 +35,10 @@ export abstract class CrudFirestore<T> {
         return from(this.entityCollection.doc(id).delete());
     }
 
-    atualizar(entity: any): Observable<void> {
-        // Removendo id pois não vamos guardar nos dados do documento, mas sim usar apenas como id para recuperar o documento
-        delete entity.id;
+    atualizar(entityId: any, data: Partial<T>): Observable<void> {
         return from(
-            this.entityCollection.doc(entity.id).update(Object.assign({}, entity))
+            this.entityCollection.doc(entityId)
+                .update(data)
         );
     }
 }

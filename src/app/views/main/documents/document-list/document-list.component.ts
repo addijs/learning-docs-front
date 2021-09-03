@@ -25,8 +25,17 @@ export class DocumentListComponent implements OnInit, OnChanges {
 
   }
 
-  handleNextTopicViewButton(): void {
-      this.nextTopicViewEvent.emit('create');
+  handleCreateButton(): void {
+      this.nextTopicViewEvent.emit('form');
+  }
+
+  handleEditButton(document: Document): void {
+      this.documentService.setDocumentToEdit(document);
+      this.nextTopicViewEvent.emit('form');
+  }
+
+  handleDeleteButton(documentId: string): void {
+      this.documentService.remover(documentId);
   }
 
   ngOnChanges(): void {
