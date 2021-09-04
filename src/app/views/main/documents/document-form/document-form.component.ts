@@ -15,13 +15,13 @@ export class DocumentFormComponent implements OnInit {
 
   constructor(
       private documentService: DocumentFirestoreService
-  ) { }
+  ) {
+    this.document = new Document();
+  }
 
   ngOnInit(): void {
-    this.document = new Document();
-
     this.documentService.documentToEdit$.subscribe(document => {
-      this.document = document;
+      if (document) this.document = document;
     })
   }
 

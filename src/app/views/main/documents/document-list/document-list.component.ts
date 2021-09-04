@@ -41,7 +41,7 @@ export class DocumentListComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.loading = true;
     this.documentService
-      .getDocumentsByTopicId(this.topicId)
+      .getDocumentsByTopicId(String(this.topicId))
       .subscribe(documents => {
           if (this.documents.length !== 0) {
               this.documents.length = 0;

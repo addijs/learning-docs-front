@@ -13,13 +13,16 @@ header {
 
 header .input-container {
   position: relative;
+
+  border: 1px solid #cdb3ff;
+  border-radius: 20px;
+  padding: 0.8rem 1.5rem;
+  width: 15rem;
 }
 
 header .input-container input {
-  border: 1px solid #cdb3ff;
-  border-radius: 20px;
-  padding: 10px 15px;
-  width: 130px;
+  border: 0;
+  width: 85%;
 }
 
 header .input-container input:focus {
@@ -28,22 +31,24 @@ header .input-container input:focus {
 
 header .input-container button.close {
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 0.8rem;
+  top: 50%;
+  margin-top: -1.2rem;
 
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
   background: none;
   border: none;
   cursor: pointer;
 
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 header button.close mat-icon {
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
 }
 
 .no-topics,

@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Video } from '@shared/entities/video';
 import { VideoService } from 'app/services/video.service';
 import { TopicService } from "@services/topic.service";
 import { VideoFirestoreService } from '@services/video-firestore.service';
 import { TopicFirestoreService } from '@services/topic-firestore.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'main-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.css'],
 })
-export class VideosComponent implements OnInit {
+export class VideosComponent implements OnInit, OnDestroy {
   private DOMAIN_URI = 'http://www.youtube.com/embed/';
 
   video: Video;
   videos: Video[];
   topicId: number;
+  topicSubscription: Subscription;
   loading: boolean;
 
   constructor(
@@ -30,11 +32,10 @@ export class VideosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.topicService.selectedTopicId$.subscribe(topicId => {
+    this.topicSubscription = this.topicService.selectedTopicId$.subscribe(topicId => {
       this.topicId = topicId
 
-      this.videoService.getVideosByTopicId(topicId).subscribe(videos => {
-        console.log(videos);
+      this.videoService.getVideosByTopicId(String(topicId)).subscribe(videos => {
         if (this.videos.length !== 0) {
           this.videos.length = 0;
         }
@@ -47,18 +48,21 @@ export class VideosComponent implements OnInit {
           this.videos.push(video);
         });
 
-        if (videos.length) this.loading = false;
+        this.loading = false;
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.topicSubscription.unsubscribe();
   }
 
   addVideo(): void {
     this.video.topicId = this.topicId;
     this.video.embedUrl = this.getEmbedUrl();
-    console.log(this.video);
 
     this.videoService.inserir(this.video).subscribe(
-      data => {
+      () => {
         const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.video.embedUrl as string
         );

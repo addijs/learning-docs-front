@@ -61,16 +61,13 @@ export class TopicsComponent implements OnInit {
       const newTopicsArray = this.topics.filter(topic => topic.id !== id);
       this.topics = [...newTopicsArray];
     });
+    // this.topicService.deleteTopic(String(id)).subscribe(() => {
+    //     const newTopicsArray = this.topics.filter(topic => topic.id !== id);
+    //     this.topics = [...newTopicsArray];
+    // });
 
     if (this.activeTopicId === id) {
       this.topicService.handleSelectedTopic(null);
     }
   }
-
-  // private getUserFromLocalStorage(): UserData {
-  //   const stringfiedUser = localStorage.getItem('loggedUser');
-  //   const user: UserData = JSON.parse(stringfiedUser);
-  //
-  //   return user;
-  // }
 }
