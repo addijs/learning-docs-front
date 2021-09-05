@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TopicService} from "@services/topic.service";
+import { TopicFirestoreService } from '@services/topic-firestore.service';
 
 @Component({
   selector: 'main-documents',
@@ -11,7 +12,7 @@ export class DocumentsComponent implements OnInit {
   topicId: number;
 
   constructor(
-      private topicService: TopicService
+      private topicService: TopicFirestoreService
   ) { }
 
   changeView(view: string) {

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from '@shared/entities/topic';
 import { TopicService } from 'app/services/topic.service';
+import { TopicFirestoreService } from '@services/topic-firestore.service';
 
 @Component({
   selector: 'main-topics',
@@ -8,19 +9,19 @@ import { TopicService } from 'app/services/topic.service';
   styleUrls: ['./topics.component.css'],
 })
 export class TopicsComponent implements OnInit {
-  // @Input() topicId: number;
   @Input() userId: number;
-  // @ViewChildren('topicList') topicList: QueryList<ElementRef<HTMLDivElement>>;
 
   topic: Topic;
   topics: Topic[];
   activeTopicId: number;
+  loading: boolean;
 
   constructor(
-      private topicService: TopicService
+      private topicService: TopicFirestoreService
   ) {
     this.topic = new Topic();
     this.topics = [];
+    this.loading = true;
   }
 
   ngOnInit(): void {
@@ -28,20 +29,9 @@ export class TopicsComponent implements OnInit {
       .getTopicsByUserId(this.userId)
       .subscribe(topics => {
         this.topics = [...topics];
+        this.loading = false;
       });
   }
-
-  // ngAfterViewInit(): void {
-  //   console.log(this.topicList);
-  // }
-
-  // topicsIsEmpty(): boolean {
-  //   if (this.topics.length === 0) {
-  //     return true;
-  //   }
-
-  //   return false;
-  // }
 
   selectTopic(id: number): void {
     this.topicService.handleSelectedTopic(id);
@@ -53,10 +43,10 @@ export class TopicsComponent implements OnInit {
   }
 
   createTopic(): void {
-    // this.topic.user_id = this.loggedUser.id;
+    this.topic.userId = this.userId;
     this.topicService.inserir(this.topic).subscribe(
-      data => {
-        this.topics.push(data);
+      () => {
+        this.topics.push(this.topic);
       },
       error => {
         alert(error);
@@ -67,20 +57,17 @@ export class TopicsComponent implements OnInit {
   }
 
   deleteTopic(id: number): void {
-    this.topicService.remover(id).subscribe(() => {
+    this.topicService.remover(String(id)).subscribe(() => {
       const newTopicsArray = this.topics.filter(topic => topic.id !== id);
       this.topics = [...newTopicsArray];
     });
+    // this.topicService.deleteTopic(String(id)).subscribe(() => {
+    //     const newTopicsArray = this.topics.filter(topic => topic.id !== id);
+    //     this.topics = [...newTopicsArray];
+    // });
 
     if (this.activeTopicId === id) {
       this.topicService.handleSelectedTopic(null);
     }
   }
-
-  // private getUserFromLocalStorage(): UserData {
-  //   const stringfiedUser = localStorage.getItem('loggedUser');
-  //   const user: UserData = JSON.parse(stringfiedUser);
-  //
-  //   return user;
-  // }
 }

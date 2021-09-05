@@ -1,8 +1,18 @@
 section {
     margin: 3rem;
+    -ms-overflow-style: none;
+}
+
+section .spinner {
+    margin-top: 10rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
 }
 
 section .message {
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
 }
@@ -14,6 +24,19 @@ section .grid-container {
     grid-gap: 1rem;
 }
 
+@media (max-width: 1070px) {
+    section .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    section .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 section .card-container,
 section .button-container {
     display: flex;
@@ -23,6 +46,7 @@ section .button-container {
 
 section .card-container {
     padding: 1rem 0;
+    margin-bottom: 4rem;
 }
 
 section .card-container .card {
@@ -43,14 +67,6 @@ section .card-container .card .content {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-}
-
-/*section .card-container .card + .card {*/
-/*    margin-top: 20px;*/
-/*}*/
-
-section .button-container {
-    margin-top: 4rem;
 }
 
 .no-documents {

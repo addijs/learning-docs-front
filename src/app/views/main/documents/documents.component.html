@@ -1,2 +1,2 @@
 <document-list *ngIf="view == 'list'" (nextTopicViewEvent)="changeView($event)" [topicId]="topicId"></document-list>
-<document-create *ngIf="view == 'create'" (nextTopicViewEvent)="changeView($event)" [topicId]="topicId"></document-create>
+<document-create *ngIf="view == 'form'" (nextTopicViewEvent)="changeView($event)" [topicId]="topicId"></document-create>

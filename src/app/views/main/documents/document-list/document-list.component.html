@@ -1,0 +1,45 @@
+<ng-container *ngIf="!(!!topicId) else listDocuments">
+    <section>
+        <div class="message">
+            <h2 class="no-documents">Selecione um tópico</h2>
+        </div>
+    </section>
+</ng-container>
+
+<ng-template #listDocuments>
+    <section>
+        <div *ngIf="loading" class="spinner">
+            <mat-spinner diameter="50"></mat-spinner>
+        </div>
+
+        <div *ngIf="!loading">
+            <div *ngIf="documents.length === 0" class="message">
+                <h2 class="no-documents">Não há anotações para esse tópico</h2>
+            </div>
+
+            <div class="grid-container">
+                <div *ngFor="let doc of documents" class="card-container">
+                    <mat-card class="card" >
+                        <mat-card-title class="title">{{ doc.title }}</mat-card-title>
+
+                        <mat-card-content class="content">
+                            <span>{{ doc.content }}</span>
+                        </mat-card-content>
+
+                        <mat-divider inset></mat-divider>
+
+                        <mat-card-actions>
+                            <button (click)="handleEditButton(doc)" mat-button>Editar</button>
+                            <button (click)="handleDeleteButton(doc.id)" mat-button>Excluir</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button mat-button (click)="handleCreateButton()" color="primary">Cadastrar documento</button>
+            </div>
+        </div>
+
+    </section>
+</ng-template>

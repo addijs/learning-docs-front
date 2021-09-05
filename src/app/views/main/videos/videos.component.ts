@@ -1,35 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Video } from '@shared/entities/video';
 import { VideoService } from 'app/services/video.service';
-import {TopicService} from "@services/topic.service";
+import { TopicService } from "@services/topic.service";
+import { VideoFirestoreService } from '@services/video-firestore.service';
+import { TopicFirestoreService } from '@services/topic-firestore.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'main-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.css'],
 })
-export class VideosComponent implements OnInit {
+export class VideosComponent implements OnInit, OnDestroy {
   private DOMAIN_URI = 'http://www.youtube.com/embed/';
 
-  topicId: number;
   video: Video;
   videos: Video[];
+  topicId: number;
+  topicSubscription: Subscription;
+  loading: boolean;
 
   constructor(
-    private topicService: TopicService,
-    private videoService: VideoService,
+    private topicService: TopicFirestoreService,
+    private videoService: VideoFirestoreService,
     private sanitizer: DomSanitizer
   ) {
     this.video = new Video();
     this.videos = [];
+    this.loading = true;
   }
 
   ngOnInit(): void {
-    this.topicService.selectedTopicId$.subscribe(topicId => {
+    this.topicSubscription = this.topicService.selectedTopicId$.subscribe(topicId => {
       this.topicId = topicId
 
-      this.videoService.getVideosByTopicId(topicId).subscribe(videos => {
+      this.videoService.getVideosByTopicId(String(topicId)).subscribe(videos => {
         if (this.videos.length !== 0) {
           this.videos.length = 0;
         }
@@ -41,23 +47,29 @@ export class VideosComponent implements OnInit {
           );
           this.videos.push(video);
         });
+
+        this.loading = false;
       });
     });
   }
 
+  ngOnDestroy(): void {
+    this.topicSubscription.unsubscribe();
+  }
+
   addVideo(): void {
-    this.video.topic_id = this.topicId;
+    this.video.topicId = this.topicId;
     this.video.embedUrl = this.getEmbedUrl();
 
     this.videoService.inserir(this.video).subscribe(
-      data => {
+      () => {
         const sanitizedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
           this.video.embedUrl as string
         );
 
-        data.embedUrl = sanitizedUrl;
+        this.video.embedUrl = sanitizedUrl;
 
-        this.videos.push(data);
+        this.videos.push(this.video);
         this.video = new Video();
       },
       error => {
@@ -67,7 +79,7 @@ export class VideosComponent implements OnInit {
   }
 
   removeVideo(id: number): void {
-    this.videoService.remover(id).subscribe(() => {
+    this.videoService.remover(String(id)).subscribe(() => {
       const newVideosArray = this.videos.filter(video => video.id !== id);
       this.videos = [...newVideosArray];
     });
