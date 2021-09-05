@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TopicService } from 'app/services/topic.service';
+import { AuthService } from "@services/auth.service";
+import {Router} from "@angular/router";
+
+interface UserData {
+  id: number;
+  name: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-main',
@@ -7,13 +15,22 @@ import { TopicService } from 'app/services/topic.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  selectedTopicId: number;
+  loggedUser: UserData
 
-  constructor() {}
+  constructor(
+      private authService: AuthService,
+      private topicService: TopicService,
+      private router: Router
+  ) {}
 
   ngOnInit(): void {
-    TopicService.emitSelectedTopic.subscribe(topicId => {
-      this.selectedTopicId = topicId;
+    this.authService.loggedUser$.subscribe(user => {
+      this.loggedUser = user as UserData;
     });
+  }
+
+  async logOut(): Promise<void> {
+    this.authService.onUserLoggedOut();
+    await this.router.navigate(['/login']);
   }
 }

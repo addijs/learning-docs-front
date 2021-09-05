@@ -1,18 +1,24 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Crud } from 'app/shared/crud_abstract';
 import { Topic } from '@shared/entities/topic';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TopicService extends Crud<Topic> {
+  private readonly selectedTopicIdSubject = new BehaviorSubject<number>(null);
+  readonly selectedTopicId$ = this.selectedTopicIdSubject.asObservable();
+
   constructor(private http: HttpClient) {
-    super('http://localhost:3333/topics', http);
+    // super('/topic', http);
+    super('/topics', http);
   }
 
-  static emitSelectedTopic = new EventEmitter<number>();
+  handleSelectedTopic(topicId: number): void {
+    this.selectedTopicIdSubject.next(topicId);
+  }
 
   getTopicsByUserId(userId: number): Observable<Topic[]> {
     return this.http.get<Topic[]>(this.url + `?user_id=${userId}`);

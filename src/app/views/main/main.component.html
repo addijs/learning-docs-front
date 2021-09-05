@@ -1,24 +1,29 @@
 <mat-toolbar>
   <span>Learning Docs!</span>
+
+  <div class="welcome">
+    <span>Bem-vindo, {{ loggedUser.name }}!</span>
+    <button (click)="logOut()">Sair</button>
+  </div>
+
 </mat-toolbar>
 
 <mat-drawer-container class="page-container">
   <mat-drawer mode="side" opened class="sidenav">
-    <main-topics [topicId]="selectedTopicId"></main-topics>
+    <main-topics [userId]="loggedUser.id"></main-topics>
   </mat-drawer>
   
   <mat-drawer-content>
     <main>
       <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Anotações"> 
-          <main-documents [topicId]="selectedTopicId"></main-documents>
+          <main-documents></main-documents>
         </mat-tab>
         <mat-tab label="Vídeos">
-          <main-videos [topicId]="selectedTopicId"></main-videos>
+          <main-videos></main-videos>
         </mat-tab>
       </mat-tab-group>
     </main>
 
   </mat-drawer-content>
-
 </mat-drawer-container>

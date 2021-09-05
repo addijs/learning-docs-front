@@ -1,0 +1,44 @@
+section {
+    position: relative;
+    margin: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section .form-container {
+    width: 60rem;
+    border: 1px solid #cdb3ff;
+    border-radius: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section .form-container input,
+section .form-container textarea{
+    width: 100%;
+    padding: 1rem;
+}
+
+section .form-container input {
+    border-bottom: 1px solid #cdb3ff;
+}
+
+section .form-container textarea {
+    height: 30rem;
+    resize: none;
+}
+
+section button.save {
+    margin-top: 4rem;
+}
+
+section button.return {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

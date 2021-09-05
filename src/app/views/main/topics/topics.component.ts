@@ -1,56 +1,39 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from '@shared/entities/topic';
 import { TopicService } from 'app/services/topic.service';
-
-export interface UserData {
-  id: number;
-  name: string;
-  email: string;
-}
 
 @Component({
   selector: 'main-topics',
   templateUrl: './topics.component.html',
   styleUrls: ['./topics.component.css'],
 })
-export class TopicsComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() topicId: number;
-  @ViewChildren('topicList') topicList: QueryList<ElementRef<HTMLDivElement>>;
+export class TopicsComponent implements OnInit {
+  // @Input() topicId: number;
+  @Input() userId: number;
+  // @ViewChildren('topicList') topicList: QueryList<ElementRef<HTMLDivElement>>;
 
   topic: Topic;
   topics: Topic[];
   activeTopicId: number;
 
-  private loggedUser: UserData;
-
-  constructor(private topicService: TopicService) {
+  constructor(
+      private topicService: TopicService
+  ) {
     this.topic = new Topic();
     this.topics = [];
   }
 
   ngOnInit(): void {
-    this.loggedUser = this.getUserFromLocalStorage();
     this.topicService
-      .getTopicsByUserId(this.loggedUser.id)
+      .getTopicsByUserId(this.userId)
       .subscribe(topics => {
         this.topics = [...topics];
       });
   }
 
-  ngOnChanges(): void {}
-
-  ngAfterViewInit(): void {
-    console.log(this.topicList);
-  }
+  // ngAfterViewInit(): void {
+  //   console.log(this.topicList);
+  // }
 
   // topicsIsEmpty(): boolean {
   //   if (this.topics.length === 0) {
@@ -61,7 +44,7 @@ export class TopicsComponent implements OnInit, OnChanges, AfterViewInit {
   // }
 
   selectTopic(id: number): void {
-    TopicService.emitSelectedTopic.emit(id);
+    this.topicService.handleSelectedTopic(id);
     this.activeTopicId = id;
   }
 
@@ -70,7 +53,7 @@ export class TopicsComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   createTopic(): void {
-    this.topic.user_id = this.loggedUser.id;
+    // this.topic.user_id = this.loggedUser.id;
     this.topicService.inserir(this.topic).subscribe(
       data => {
         this.topics.push(data);
@@ -89,15 +72,15 @@ export class TopicsComponent implements OnInit, OnChanges, AfterViewInit {
       this.topics = [...newTopicsArray];
     });
 
-    if (this.topicId === id) {
-      TopicService.emitSelectedTopic.emit(undefined);
+    if (this.activeTopicId === id) {
+      this.topicService.handleSelectedTopic(null);
     }
   }
 
-  private getUserFromLocalStorage(): UserData {
-    const stringfiedUser = localStorage.getItem('loggedUser');
-    const user: UserData = JSON.parse(stringfiedUser);
-
-    return user;
-  }
+  // private getUserFromLocalStorage(): UserData {
+  //   const stringfiedUser = localStorage.getItem('loggedUser');
+  //   const user: UserData = JSON.parse(stringfiedUser);
+  //
+  //   return user;
+  // }
 }

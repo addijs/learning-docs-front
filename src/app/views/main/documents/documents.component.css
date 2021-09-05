@@ -12,23 +12,3 @@ header {
 header .input-container {
   width: 50%;
 }
-
-.card-container {
-  margin: 30px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card-container .card {
-  width: 300px;
-}
-
-.card-container .card + .card {
-  margin-top: 20px;
-}
-
-.no-documents {
-  color: #cdb3ff;
-}

@@ -3,6 +3,7 @@ import { User } from '@shared/entities/user';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
+import {AuthService} from "@services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   user: User;
 
   constructor(
+    private authService: AuthService,
     private snackBar: MatSnackBar,
     private service: UserService,
     private router: Router
@@ -26,10 +28,17 @@ export class LoginComponent implements OnInit {
     this.user = new User();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   login(): void {
-    this.service.getUser(this.user.email).subscribe(([storedUser]) => {
+    const credentials = {
+      email: this.user.email,
+      password: this.user.password
+    }
+
+    this.service.logIn(credentials).subscribe(async ([storedUser]) => {
       if (!storedUser) {
         this.openSnackBar('Este usuário não existe');
         return;
@@ -42,9 +51,10 @@ export class LoginComponent implements OnInit {
 
       delete storedUser.password;
 
-      localStorage.setItem('loggedUser', JSON.stringify(storedUser));
+      this.authService.onUserLoggedIn(storedUser);
+      localStorage.setItem('learning-docs-user', JSON.stringify(storedUser));
 
-      this.router.navigate(['/main']);
+      await this.router.navigate(['/main']);
     });
   }
 
