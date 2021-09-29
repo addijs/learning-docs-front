@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
 
     this.service.signUp(this.user).subscribe(async () => {
       alert('Usuário cadastrado com sucesso!');
-      await this.router.navigate(['/']);
+      await this.router.navigate(['/login']);
 
       this.user = new User();
     });

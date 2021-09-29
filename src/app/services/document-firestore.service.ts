@@ -21,7 +21,7 @@ export class DocumentFirestoreService extends CrudFirestore<Document> {
         this.documentToEditSubject.next(document);
     }
 
-    getDocumentsByTopicId(topicId: number): Observable<Document[]> {
+    getDocumentsByTopicId(topicId: string): Observable<Document[]> {
         return this.db.collection<Document>(this.collectionName, ref => {
             return ref.where('topicId', '==', topicId);
         }).valueChanges({ idField: 'id' });

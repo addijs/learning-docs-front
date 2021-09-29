@@ -14,7 +14,7 @@ export class VideoFirestoreService extends CrudFirestore<Video> {
     super('videos', db);
   }
 
-  getVideosByTopicId(topicId: number): Observable<Video[]> {
+  getVideosByTopicId(topicId: string): Observable<Video[]> {
     return this.db.collection<Video>(this.collectionName, ref => {
       return ref.where('topicId', '==', topicId);
     }).valueChanges({ idField: 'id' });
