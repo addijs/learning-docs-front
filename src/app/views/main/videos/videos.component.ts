@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Video } from '@shared/entities/video';
-import { VideoService } from 'app/services/video.service';
-import { TopicService } from "@services/topic.service";
 import { VideoFirestoreService } from '@services/video-firestore.service';
 import { TopicFirestoreService } from '@services/topic-firestore.service';
 import { Subscription } from 'rxjs';

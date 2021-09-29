@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '@shared/entities/user';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserService } from 'app/services/user.service';
 import {AuthService} from "@services/auth.service";
 import { UserFirestoreService } from '@services/user-firestore.service';
 import { mergeMap, switchMap, take } from 'rxjs/operators';

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TopicService } from 'app/services/topic.service';
 import { AuthService } from "@services/auth.service";
 import {Router} from "@angular/router";
 import { TopicFirestoreService } from '@services/topic-firestore.service';

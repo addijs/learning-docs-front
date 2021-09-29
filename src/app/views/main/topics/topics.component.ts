@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Topic } from '@shared/entities/topic';
-import { TopicService } from 'app/services/topic.service';
 import { TopicFirestoreService } from '@services/topic-firestore.service';
 
 @Component({

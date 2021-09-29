@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { DocumentService } from "@services/document.service";
 import { Document } from "@shared/entities/document";
 import { DocumentFirestoreService } from '@services/document-firestore.service';
 

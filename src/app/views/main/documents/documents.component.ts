@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {TopicService} from "@services/topic.service";
 import { TopicFirestoreService } from '@services/topic-firestore.service';
 
 @Component({
