@@ -21,7 +21,13 @@
           <input matInput [(ngModel)]="user.email" placeholder="Email">
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="user.password" placeholder="Senha" type="password">
+          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="user.password" placeholder="Senha">
+          <button class="hide-button" mat-icon-button matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Esconder senha'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
         </mat-form-field>
       </div>
   

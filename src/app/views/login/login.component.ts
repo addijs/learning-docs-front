@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import {AuthService} from "@services/auth.service";
 import { UserFirestoreService } from '@services/user-firestore.service';
+import { mergeMap, switchMap, take } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +21,7 @@ export class LoginComponent implements OnInit {
   };
 
   user: User;
+  hide: boolean;
 
   constructor(
     private authService: AuthService,
@@ -27,6 +30,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.user = new User();
+    this.hide = true;
   }
 
   ngOnInit(): void {
@@ -39,23 +43,47 @@ export class LoginComponent implements OnInit {
       password: this.user.password
     }
 
-    this.userService.logIn(credentials).subscribe(async ([storedUser]) => {
-      if (!storedUser) {
-        this.openSnackBar('Este usuário não existe');
-        return;
-      }
+    // this.userService.logIn(credentials).subscribe(async ([storedUser]) => {
+    //   if (!storedUser) {
+    //     this.openSnackBar('Este usuário não existe');
+    //     return;
+    //   }
+    //
+    //   if (this.user.password !== storedUser.password) {
+    //     this.openSnackBar('Senha incorreta');
+    //     return;
+    //   }
+    //
+    //   delete storedUser.password;
+    //
+    //   this.authService.onUserLoggedIn(storedUser);
+    //   localStorage.setItem('learning-docs-user', JSON.stringify(storedUser));
+    //
+    //   await this.router.navigate(['/main']);
+    // });
 
-      if (this.user.password !== storedUser.password) {
-        this.openSnackBar('Senha incorreta');
-        return;
-      }
+    this.userService.logIn(credentials).pipe(
+        switchMap(([storedUser]) => {
+            if (!storedUser) {
+              this.openSnackBar('Este usuário não existe');
+              return;
+            }
 
-      delete storedUser.password;
+            if (this.user.password !== storedUser.password) {
+              this.openSnackBar('Senha incorreta');
+              return;
+            }
 
-      this.authService.onUserLoggedIn(storedUser);
-      localStorage.setItem('learning-docs-user', JSON.stringify(storedUser));
+            delete storedUser.password;
+            this.authService.onUserLoggedIn(storedUser);
+            localStorage.setItem('learning-docs-user', JSON.stringify(storedUser));
 
-      await this.router.navigate(['/main']);
+            return of(storedUser);
+        }),
+        switchMap(user => this.userService.setLoggedAt(user)),
+        take(1)
+    ).subscribe(async () => {
+        await this.router.navigate(['/main']);
     });
   }
 
