@@ -8,10 +8,14 @@ mat-toolbar {
 }
 
 mat-toolbar .welcome {
-  width: 20rem;
+  width: 40rem;
   padding-left: 20px;
   display: flex;
   justify-content: space-around;
+}
+
+mat-toolbar .welcome .toggle {
+
 }
 
 mat-toolbar .welcome span {

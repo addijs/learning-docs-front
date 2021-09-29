@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { User } from '@shared/entities/user';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import {CrudFirestore} from "@shared/crud_abstract_firestore";
@@ -29,6 +29,15 @@ export class UserFirestoreService extends CrudFirestore<User> {
     signUp(user: User): Observable<DocumentReference<User>> {
         delete user.id;
 
-        return from(this.inserir(user));
+        return this.inserir(user);
+    }
+
+    setLoggedAt(user: User): Observable<void> {
+        const loggedAt = Date.now() / 1000;
+        this.atualizar(user.id, {
+            loggedAt
+        });
+
+        return of(null);
     }
 }
